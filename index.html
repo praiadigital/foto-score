@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Foto Score — suas fotos vendem ou espantam?</title>
+<meta name="description" content="Checklist inteligente que prevê a conversão das fotos do seu anúncio de temporada. Satélite da rede praia.digital">
+<style>
+body{margin:0;font-family:system-ui,sans-serif;background:#fff1f2;color:#4c0519;min-height:100vh}
+header{padding:24px;text-align:center;background:linear-gradient(120deg,#be123c,#fb7185);color:#fff}
+nav a{color:#ffe4e6;margin:0 8px;text-decoration:none;font-size:14px;font-weight:600}
+.wrap{max-width:680px;margin:auto;padding:24px}
+.panel{background:#fff;border-radius:16px;padding:22px;margin-bottom:16px;box-shadow:0 6px 18px rgba(190,18,60,.1)}
+.item{display:flex;gap:10px;padding:9px 0;border-bottom:1px dashed #fecdd3;align-items:flex-start;font-size:15px;cursor:pointer}
+.item input{transform:scale(1.4);accent-color:#e11d48;margin-top:3px}
+.nota{text-align:center;padding:20px}
+.nota b{font-size:60px;color:#e11d48}
+.barra{background:#ffe4e6;border-radius:99px;height:14px;overflow:hidden;margin:10px 0}
+.barra div{height:100%;background:linear-gradient(90deg,#fb7185,#fbbf24,#4ade80);transition:width .4s}
+footer{padding:20px;text-align:center;font-size:13px}
+footer a{color:#be123c}
+</style></head>
+<body>
+<header><h1>📸 Foto Score</h1><p>90% da decisão do hóspede é visual. Como estão suas fotos?</p>
+<nav><a href="https://praia.digital">Praia Digital</a><a href="https://praia.digital/tour-360">Tour 360</a><a href="https://praia.digital/seo-anuncio">SEO de Anúncio</a><a href="https://praia.digital/apps">Todos os apps</a></nav></header>
+<div class="wrap"><div class="panel"><h2>Marque o que suas fotos têm ✅</h2><div id="lista"></div></div>
+<div class="panel nota"><b id="nota">—</b><div class="barra"><div id="bar"></div></div><p id="msg"></p></div></div>
+<footer>Rede <a href="https://praia.digital">praia.digital</a> · <a href="https://praia.digital/decor-praia">Decor Praia</a> · <a href="https://praia.digital/reputacao">Reputação</a> · <a href="https://praia.digital/gerador-descricoes">Gerador IA</a></footer>
+<script>
+const itens=[['Foto de capa com a melhor vista (mar/varanda)',3],['Fotos na horizontal, nunca na vertical',1],['Luz natural — fotos feitas de dia',2],['Todos os cômodos cobertos (1+ foto cada)',2],['Foto do banheiro limpo e claro',1],['Cama feita com roupa branca',1],['Sem objetos pessoais nas fotos',1],['Foto da fachada/prédio/rua',1],['20+ fotos no anúncio',2],['Ângulo aberto (canto do cômodo)',1],['Mesa posta ou detalhe acolhedor',1],['Foto da praia ou do entorno',2]];
+const KEY='fotoscore';let st=JSON.parse(localStorage.getItem(KEY)||'{}');
+function draw(){let pts=0,tot=0;
+lista.innerHTML=itens.map((t,i)=>{tot+=t[1];if(st[i])pts+=t[1];return `<label class="item"><input type="checkbox" ${st[i]?'checked':''} onchange="st[${i}]=this.checked;localStorage.setItem('${KEY}',JSON.stringify(st));draw()"> ${t[0]} ${t[1]>1?'<b>+'+t[1]+'</b>':''}</label>`}).join('');
+const n=Math.round(pts/tot*100);nota.textContent=n;bar.style.width=n+'%';
+msg.innerHTML=n>=80?'🔥 Fotos de alta conversão! Complete com um <a href="https://praia.digital/tour-360">Tour 360</a> para voar.':n>=50?'👍 Bom caminho! As faltas acima são pontos fáceis de ganhar.':'⚠️ Fotos fracas derrubam reservas. Capriche nos itens com +2 e +3!';}
+draw();
+</script></body></html>
